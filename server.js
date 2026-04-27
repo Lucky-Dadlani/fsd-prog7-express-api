@@ -39,8 +39,12 @@ app.get('/products', (req, res) => {
 
 // GET product by id
 app.get('/products/:id', (req, res) => {
-  const newData = products.filter(item => item.id.toString() === req.params.id)
-  res.send(newData);
+  const newData = products.find(item => item.id.toString() === req.params.id);
+  if (newData) {
+    res.send(newData);
+  } else {
+    res.status(404).send({ message: 'Product not found' });
+  }
 });
 
 // POST add a new product
